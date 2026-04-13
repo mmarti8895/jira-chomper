@@ -1,0 +1,29 @@
+jira_mcp_adapter:
+  base_url: "https://your-domain.atlassian.net"
+  deployment_type: "cloud"  # cloud | data-center
+  auth:
+    mode: "api_token"        # api_token | pat | bearer
+    email: "jira-user@example.com"
+    api_token_env: "JIRA_API_TOKEN"
+    personal_access_token_env: "JIRA_PAT"
+    bearer_token_env: "JIRA_BEARER_TOKEN"
+
+  timeout_seconds: 30
+
+  retry:
+    max_attempts: 3
+    initial_delay_seconds: 0.25
+    max_delay_seconds: 3.0
+    backoff_multiplier: 2.0
+    retry_statuses: [408, 429, 500, 502, 503, 504]
+
+  pagination:
+    page_size: 50
+    max_pages: 20
+    max_page_size: 100
+
+  issue_type_mapping:
+    fallback: "Task"
+    overrides:
+      "User Story": "Story"
+      "Defect": "Bug"
